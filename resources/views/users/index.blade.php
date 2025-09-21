@@ -1,45 +1,48 @@
 @extends('template.master')
+
 @section('content')
-<article class="h-100 flex-grow-1 p-4 main-content">
-    <h1>Hello, world!</h1>
-    <p>Ini adalah konten utama dari halaman.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-        dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce
-        nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti
-        sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed
-        dignissim lacinia nunc. Curabitur tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-    <p>Aenean ut eros et nisl. Integer a libero non felis ultricies. Fusce vulputate, nunc id rhoncus, orci lacus
-        dictum metus, ac ornare diam elit vel quam. Aenean ut eros et nisl. Sed dignissim lacinia nunc. Curabitur
-        tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-    <p>Aenean ut eros et nisl. Integer a libero non felis ultricies. Fusce vulputate, nunc id rhoncus, orci lacus
-        dictum metus, ac ornare diam elit vel quam. Aenean ut eros et nisl. Sed dignissim lacinia nunc. Curabitur
-        tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-    <p>Aenean ut eros et nisl. Integer a libero non felis ultricies. Fusce vulputate, nunc id rhoncus, orci lacus
-        dictum metus, ac ornare diam elit vel quam. Aenean ut eros et nisl. Sed dignissim lacinia nunc. Curabitur
-        tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-    <p>Aenean ut eros et nisl. Integer a libero non felis ultricies. Fusce vulputate, nunc id rhoncus, orci lacus
-        dictum metus, ac ornare diam elit vel quam. Aenean ut eros et nisl. Sed dignissim lacinia nunc. Curabitur
-        tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-    <p>Aenean ut eros et nisl. Integer a libero non felis ultricies. Fusce vulputate, nunc id rhoncus, orci lacus
-        dictum metus, ac ornare diam elit vel quam. Aenean ut eros et nisl. Sed dignissim lacinia nunc. Curabitur
-        tortor. Pellentesque dapibus. In
-        facilisis scelerisque dui. Maecenas a libero. Integer a libero non felis ultricies. Fusce vulputate, nunc id
-        rhoncus, orci lacus dictum metus, ac ornare diam elit vel quam.
-    </p>
-</article>
+    <article class="h-100 flex-grow-1 p-4 main-content">
+        <h1>Users</h1>
+        <div class="card">
+            <div class="card-header">
+                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">Tambah User</a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->role }}</td>
+                                <td>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
 @endsection
