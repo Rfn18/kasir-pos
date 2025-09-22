@@ -35,6 +35,11 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required|in:1,2,3,4',
         ]);
+
+        $validate['password'] = bcrypt($validate['password']);
+
+        $user = User::create($validate);
+        return redirect()->route('users.index')->with('success', 'User created successfuly');
     }
 
     /**

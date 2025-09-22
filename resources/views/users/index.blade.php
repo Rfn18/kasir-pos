@@ -3,6 +3,15 @@
 @section('content')
     <article class="h-100 flex-grow-1 p-4 main-content">
         <h1>Users</h1>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">Tambah User</a>
