@@ -65,7 +65,7 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
-        
+
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
@@ -77,7 +77,7 @@ class UserController extends Controller
             $validate['password'] = bcrypt($validate['password']);
         } else {
             unset($validate['password']);
-        };
+        }
 
         $user->update($validate);
         return redirect()->route('users.index')->with('success', 'User update successfuly');
